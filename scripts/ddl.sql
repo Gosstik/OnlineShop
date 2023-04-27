@@ -6,10 +6,10 @@ set postgresql.conf.lc_monetary to "ba-RU.utf8";
 create table if not exists osh.client (
     client_id integer,
     name varchar(100) not null,
-    gender varchar(1) default 'N',
-    birthday_dt date default '9999-12-31',
+    gender varchar(1) not null default 'N',
+    birthday_dt date not null default '9999-12-31',
     phone varchar(20) not null,
-    email varchar(120) default 'N',
+    email varchar(120) not null default 'N',
 
     constraint PK_client primary key (client_id),
     constraint CHK_client_gender check (gender in ('M', 'F', 'N')),
@@ -34,7 +34,7 @@ create table if not exists osh.courier (
     courier_id integer,
     name varchar(100) not null,
     gender varchar(1) not null,
-    birthday_dt date default '9999-12-31',
+    birthday_dt date not null,
     phone varchar(20) not null,
     email varchar(120) not null,
 
@@ -77,14 +77,14 @@ create table if not exists osh.category (
 
 create table if not exists osh.product (
     product_hist_id integer,
-    product_id integer,
+    product_id integer not null,
     name varchar(70) not null,
     category_nm varchar(50),
     price money not null,
     manufacturer_nm varchar(100),
     rating integer,
     valid_from_dt timestamp not null,
-    valid_to_dt timestamp not null,
+    valid_to_dt timestamp not null default '9999-12-31',
 
     constraint PK_product primary key (product_hist_id),
     constraint FK_product_category_nm foreign key (category_nm) references osh.category(category_nm)
@@ -99,7 +99,6 @@ create table if not exists osh.product (
 create table if not exists osh.product_in_order (
     order_id integer,
     product_hist_id integer,
-
     count integer,
 
     constraint PK_product_in_order primary key (order_id, product_hist_id),
