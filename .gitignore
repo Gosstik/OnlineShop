@@ -1,0 +1,10 @@
+.clang-tidy
+.clang-format
+cmake-build-debug/
+.idea/
+bin/
+
+CMakeLists.txt
+data-generator/main.cpp
+gen_inserts.txt
+/gen_inserts_data
